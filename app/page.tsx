@@ -1,69 +1,257 @@
-import Image from "next/image";
+import type { Metadata } from "next";
+import {
+  ArrowDownRight,
+  ArrowUpRight,
+} from "lucide-react";
 
-export default function Home() {
+import {
+  getFeaturedProducts,
+} from "@/data/products";
+
+import ProductGrid from "@/components/ProductGrid";
+import type { Product } from "@/types/product";
+
+export const metadata: Metadata = {
+  title: "Home",
+  description:
+    "Discover thoughtfully selected products, practical home essentials, useful gadgets, and everyday finds at My Useful Finds.",
+
+  openGraph: {
+    title: "My Useful Finds | Discover Things That Make Life Better",
+    description:
+      "Explore useful products, home essentials, and everyday discoveries worth sharing.",
+    siteName: "My Useful Finds",
+    locale: "en_PH",
+    type: "website",
+  },
+
+  twitter: {
+    card: "summary",
+    title: "My Useful Finds",
+    description:
+      "Discover useful products, home essentials, and everyday finds.",
+  },
+};
+
+function Hero() {
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert h-5 w-[100px]"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the{" "}
-            <code className="rounded bg-black/[.06] px-1.5 py-0.5 font-mono text-[0.9em] dark:bg-white/[.08]">
-              page.tsx
-            </code>{" "}
-            file.
+    <section className="hero">
+      <div className="container hero-inner">
+        <div className="hero-copy">
+          <span className="eyebrow">
+            A LITTLE SOMETHING FOR EVERYDAY LIVING
+          </span>
+
+          <h1>
+            Discover things
+            <br />
+            that make life <em>better.</em>
           </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
+
+          <p>
+            Thoughtfully selected finds for your home, workspace,
+            and all the little moments in between.
+          </p>
+
+          <a href="/all-finds" className="primary-button">
+            EXPLORE THE FINDS
+            <ArrowUpRight size={16} />
+          </a>
+
+          <div className="hero-note">
+            <span className="hero-note-line" />
+            USEFUL THINGS. BETTER LIVING.
+          </div>
+        </div>
+
+        <div className="hero-visual">
+          <img
+            src="https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?w=1500&q=90"
+            alt="Warm, thoughtfully designed modern living space"
+          />
+
+          <div className="hero-image-caption">
+            <span>THE ART OF EVERYDAY LIVING</span>
+            <ArrowDownRight size={19} />
+          </div>
+
+          <div className="hero-index">COLLECTION NO. 001</div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function FeaturedFinds({ products }: { products: Product[] }) {
+  return (
+    <section className="featured-section section-space" id="featured">
+      <div className="container">
+        <div className="section-top">
+          <div>
+            <span className="eyebrow">HANDPICKED FOR YOU</span>
+
+            <h2 className="section-heading">
+              Featured discoveries.
+            </h2>
+
+            <p className="section-description">
+              {`Showing ${products.length} featured product${products.length === 1 ? "" : "s"}.`}
+            </p>
+          </div>
+
+          <a href="/all-finds" className="text-link desktop-link">
+            VIEW ALL FINDS <ArrowUpRight size={15} />
+          </a>
+        </div>
+
+        <ProductGrid
+          products={products}
+          emptyMessage="No featured finds available yet. Check back soon!"
+        />
+
+        <div className="featured-mobile-link">
+          <a href="/all-finds" className="text-link">
+            VIEW ALL FINDS <ArrowUpRight size={15} />
+          </a>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function AboutSection() {
+  return (
+    <section className="about-section section-space" id="about">
+      <div className="container about-inner">
+        <div className="about-mark">M.</div>
+
+        <div className="about-copy">
+          <span className="eyebrow">A NOTE ABOUT US</span>
+
+          <h2>
+            Not everything needs to be extraordinary.
+            <em> Sometimes, useful is enough.</em>
+          </h2>
+
+          <p>
+            My Useful Finds is a curated collection of interesting
+            products, practical discoveries, and everyday essentials.
+            We believe the right little things can make everyday life
+            more enjoyable.
+          </p>
+
+          <a href="#footer" className="text-link">
+            GET TO KNOW US <ArrowUpRight size={15} />
+          </a>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function DiscoveryBanner() {
+  return (
+    <section className="discovery-banner">
+      <div className="container discovery-inner">
+        <span className="eyebrow">
+          ALWAYS SOMETHING WORTH DISCOVERING
+        </span>
+
+        <h2>Good finds are worth sharing.</h2>
+
+        <p>
+          Explore useful discoveries and find something that
+          makes your everyday a little better.
+        </p>
+
+        <a href="/all-finds" className="primary-button">
+          START EXPLORING <ArrowUpRight size={16} />
+        </a>
+      </div>
+    </section>
+  );
+}
+
+function Footer() {
+  return (
+    <footer className="site-footer" id="footer">
+      <div className="container">
+        <div className="footer-main">
+          <div className="footer-brand">
+            <a href="/" className="brand">
+              my useful finds<span>.</span>
+            </a>
+
+            <p>Useful things. Better living.</p>
+          </div>
+
+          <div className="footer-column">
+            <span className="eyebrow">EXPLORE</span>
+            <a href="/all-finds">All Finds</a>
+            <a href="/#about">About Us</a>
+          </div>
+
+          <div className="footer-column">
+            <span className="eyebrow">INFORMATION</span>
+            <a href="#affiliate-note">Affiliate Disclosure</a>
+            <a href="mailto:hello@myusefulfinds.com">Contact</a>
+          </div>
+
+          <div className="footer-social">
+            <span className="eyebrow">FOLLOW OUR FINDS</span>
+
             <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
+              href="https://www.pinterest.com/myusefulfinds/"
+              target="_blank"
+              rel="noreferrer"
+              aria-label="Visit My Useful Finds on Pinterest"
             >
-              Templates
-            </a>{" "}
-            or the{" "}
+              PINTEREST <ArrowUpRight size={14} />
+            </a>
+
             <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
+              href="https://www.instagram.com/"
+              target="_blank"
+              rel="noreferrer"
+              aria-label="Visit Instagram"
             >
-              Learning
-            </a>{" "}
-            center.
+              INSTAGRAM <ArrowUpRight size={14} />
+            </a>
+          </div>
+        </div>
+
+        <div className="affiliate-note" id="affiliate-note">
+          <p>
+            As an Amazon Associate I earn from qualifying purchases.
+            Some links on this website may be affiliate links.
           </p>
         </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert h-[14px] w-4"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={14}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
+
+        <div className="footer-bottom">
+          <span>
+            © {new Date().getFullYear()} MY USEFUL FINDS. ALL RIGHTS RESERVED.
+          </span>
+
+          <span>MADE WITH CARE.</span>
         </div>
+      </div>
+    </footer>
+  );
+}
+
+export default function Home() {
+  const featuredProducts = getFeaturedProducts();
+
+  return (
+    <>
+      <main>
+        <Hero />
+        <FeaturedFinds products={featuredProducts} />
+        <AboutSection />
+        <DiscoveryBanner />
       </main>
-    </div>
+
+      <Footer />
+    </>
   );
 }
