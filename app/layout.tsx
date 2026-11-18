@@ -13,6 +13,10 @@ export const metadata: Metadata = {
 
   applicationName: "My Useful Finds",
 
+  verification: {
+    google: "P2zR3XbNvUE9n-NmAn8tGBKCTwmZ9QJNV4GJ2zTnJUE",
+  },
+
   keywords: [
     "useful finds",
     "home essentials",
